@@ -20,6 +20,20 @@ namespace BaoCao
         {
             InitializeComponent();
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            List<EmployeeBEL> lstemp = empBAL.ReadEmployee();
+            foreach (EmployeeBEL emp in lstemp)
+            {
+                dgvEmployee.Rows.Add(emp.IdEmployee, emp.Name, emp.DateBirth.ToShortDateString(), emp.Gender, emp.PlaceBirth, emp.NameDepartment);
+            }
+            List<DepartmentBEL> lstDepartment = depBAL.ReadDepartmentList();
+            foreach (DepartmentBEL department in lstDepartment)
+            {
+                comboBoxDV.Items.Add(department);
+            }
+            comboBoxDV.DisplayMember = "Name";
+        }
         private void dgvEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int idx = e.RowIndex;
@@ -138,23 +152,22 @@ namespace BaoCao
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có muốn thoát hay không", "Thoát Chương Trình", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                this.Close();
+            DialogResult result = MessageBox.Show("Bạn Có muốn Thoát", "Thoát Chương Trình", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+            switch (result)
+            {
+                case DialogResult.No:
+                    //khong thoat
+                    break;
+                case DialogResult.Yes:
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
+            //if (MessageBox.Show("Bạn có muốn thoát hay không", "Thoát Chương Trình", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            //    this.Close();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            List<EmployeeBEL> lstemp = empBAL.ReadEmployee();
-            foreach (EmployeeBEL emp in lstemp)
-            {
-                dgvEmployee.Rows.Add(emp.IdEmployee, emp.Name, emp.DateBirth.ToShortDateString(), emp.Gender, emp.PlaceBirth, emp.NameDepartment);
-            }
-            List<DepartmentBEL> lstDepartment = depBAL.ReadDepartmentList();
-            foreach (DepartmentBEL department in lstDepartment)
-            {
-                comboBoxDV.Items.Add(department);
-            }
-            comboBoxDV.DisplayMember = "Name";
-        }
+
     }
 }

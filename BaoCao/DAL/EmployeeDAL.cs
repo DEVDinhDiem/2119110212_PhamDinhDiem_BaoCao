@@ -13,20 +13,18 @@ namespace BaoCao.DAL
     {
         public List<EmployeeBEL> ReadEmployee()
         {
+            List<EmployeeBEL> lstemp = new List<EmployeeBEL>();
+            DepartmentDAL dep = new DepartmentDAL();
             SqlConnection conn = CreateConnection();
             conn.Open();
             SqlCommand cmd = new SqlCommand("SelectAllEmployee", conn)
             {
                 CommandType = CommandType.StoredProcedure
             };
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            List<EmployeeBEL> lstemp = new List<EmployeeBEL>();
-            DepartmentDAL dep = new DepartmentDAL();
+            SqlDataReader reader = cmd.ExecuteReader();         
             while (reader.Read())
             {
                 EmployeeBEL emp = new EmployeeBEL();
-
                 emp.IdEmployee = reader["IdEmployee"].ToString();
                 emp.Name = reader["Name"].ToString();
                 emp.DateBirth = (DateTime)reader["DateBirth"];

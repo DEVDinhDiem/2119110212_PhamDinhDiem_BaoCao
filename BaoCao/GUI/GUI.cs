@@ -43,14 +43,15 @@ namespace BaoCao
                 txtMa.Text = dgvEmployee.Rows[idx].Cells[0].Value.ToString();
                 txtName.Text = dgvEmployee.Rows[idx].Cells[1].Value.ToString();
                 datebỉth.Text = dgvEmployee.Rows[idx].Cells[2].Value.ToString();
-                string cb = dgvEmployee.Rows[idx].Cells[3].Value.ToString();
-                if (cb == "True")
-                {
-                    cbGioiTinh.Checked = true;
-                }   
-                {
-                    cbGioiTinh.Checked = false;
-                }
+                //string cb = dgvEmployee.Rows[idx].Cells[3].Value.ToString();
+                //if (cb == "True")
+                //{
+                //    cbGioiTinh.Checked = true;
+                //}   
+                //{
+                //    cbGioiTinh.Checked = false;
+                //}
+                cbGioiTinh.Checked = dgvEmployee.Rows[idx].Cells[3].Value.Equals(true);
                 txtNoiSinh.Text = dgvEmployee.Rows[idx].Cells[4].Value.ToString();
                 comboBoxDV.Text = dgvEmployee.Rows[idx].Cells[5].Value.ToString();             
             }
@@ -69,7 +70,9 @@ namespace BaoCao
                 if (txtMa.Text == "" || txtName.Text == "")//masv va ten kh được để trống
                 {
                     MessageBox.Show("Mã và Tên không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }                           
+                }
+                else
+                {
                     EmployeeBEL emp = new EmployeeBEL();
                     emp.IdEmployee = txtMa.Text;
                     emp.Name = txtName.Text;
@@ -86,6 +89,7 @@ namespace BaoCao
                     cbGioiTinh.Checked = false;
                     txtNoiSinh.Text = "";
                     comboBoxDV.Text = "";
+                }
             }
         }
 

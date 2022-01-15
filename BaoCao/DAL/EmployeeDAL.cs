@@ -36,7 +36,6 @@ namespace BaoCao.DAL
                 else
                 {
                     emp.Gender = false;
-
                 }
                 emp.PlaceBirth = reader["PlaceBirth"].ToString();
                 emp.Department = dep.ReadDepartment(reader["IdDepartment"].ToString());
